@@ -12,11 +12,22 @@ namespace ReadExcel.Controllers
 {
     public class HomeController : Controller
     {
-        //
-        // GET: /Home/
-
         public ActionResult Index()
         {
+            return View();
+        }
+
+        public ActionResult About()
+        {
+            ViewBag.Message = "Your application description page.";
+
+            return View();
+        }
+
+        public ActionResult Contact()
+        {
+            ViewBag.Message = "Your contact page.";
+
             return View();
         }
 
@@ -24,13 +35,15 @@ namespace ReadExcel.Controllers
         {
             return View();
         }
+
         [HttpPost]
-        public ActionResult ReadExcel(HttpPostedFileBase uploadFile)
+        public ActionResult ReadExcel(HttpPostedFileBase upload)
         {
-            if (Path.GetExtension(uploadFile.FileName) == ".xlsx" || Path.GetExtension(uploadFile.FileName) == ".xls")
+            if (Path.GetExtension(upload.FileName) == ".xlsx" || Path.GetExtension(upload.FileName) == ".xls")
             {
-                ExcelPackage package = new ExcelPackage(uploadFile.InputStream);
+                ExcelPackage package = new ExcelPackage(upload.InputStream);
                 DataTable Dt = ExcelPackageExtensions.ToDataTable(package);
+                // Getting those error because we don't  have any ReadExcel view . you can use this datatatable where you need it.
             }
             return View();
         }

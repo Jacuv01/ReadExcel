@@ -1,9 +1,9 @@
-﻿using System;
+﻿using OfficeOpenXml;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
-using OfficeOpenXml;
 
 namespace ReadExcel.Models
 {
@@ -17,13 +17,13 @@ namespace ReadExcel.Models
             {
                 Dt.Columns.Add(firstRowCell.Text);
             }
-            for(var rowNumber = 2; rowNumber <= workSheet.Dimension.End.Row; rowNumber++)
+            for (var rowNumber = 2; rowNumber <= workSheet.Dimension.End.Row; rowNumber++)
             {
-                var row = workSheet.Cells[rowNumber,1,rowNumber,workSheet.Dimension.End.Column];
-                var newRow= Dt.NewRow();
-                foreach(var cell in row)
+                var row = workSheet.Cells[rowNumber, 1, rowNumber, workSheet.Dimension.End.Column];
+                var newRow = Dt.NewRow();
+                foreach (var cell in row)
                 {
-                    newRow[cell.Start.Column - 1]= cell.Text;
+                    newRow[cell.Start.Column - 1] = cell.Text;
                 }
                 Dt.Rows.Add(newRow);
             }
